@@ -1,0 +1,5 @@
+---
+- name: NFS role executed
+  debug:
+    msg: "NFS role installed and executed via Ansible Galaxy"
+# tasks file for nfs_role
