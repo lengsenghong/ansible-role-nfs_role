@@ -7,6 +7,7 @@
     state: present
     update_cache: yes
   become: true
+  ignore_errors: true
 
 - name: Setup NFS server
   import_tasks: server.yml
