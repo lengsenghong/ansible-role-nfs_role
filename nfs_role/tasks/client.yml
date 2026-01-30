@@ -1,0 +1,17 @@
+---
+- name: Create mount directory
+  file:
+    path: "{{ nfs_client_mount_path }}"
+    state: directory
+    mode: "0777"
+  become: true
+
+- name: Mount NFS share
+  mount:
+    src: "{{ nfs_server_address }}:{{ nfs_server_export_path }}"
+    path: "{{ nfs_client_mount_path }}"
+    fstype: nfs
+    opts: defaults
+    state: mounted
+  become: true
+  ignore_errors: true   # important for demo safety

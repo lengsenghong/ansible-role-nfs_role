@@ -1,5 +1,17 @@
 ---
-- name: NFS role executed
-  debug:
-    msg: "NFS role installed and executed via Ansible Galaxy"
-# tasks file for nfs_role
+- name: Install NFS packages
+  apt:
+    name:
+      - nfs-kernel-server
+      - nfs-common
+    state: present
+    update_cache: yes
+  become: true
+
+- name: Setup NFS server
+  import_tasks: server.yml
+  when: nfs_mode == "server"
+
+- name: Setup NFS client
+  import_tasks: client.yml
+  when: nfs_mode == "client"

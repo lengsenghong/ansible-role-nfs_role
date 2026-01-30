@@ -1,0 +1,21 @@
+---
+- name: Create NFS export directory
+  file:
+    path: "{{ nfs_server_export_path }}"
+    state: directory
+    owner: nobody
+    group: nogroup
+    mode: "0777"
+  become: true
+
+- name: Configure NFS exports
+  lineinfile:
+    path: /etc/exports
+    line: "{{ nfs_server_export_path }} {{ nfs_client_allow }}(rw,sync,no_subtree_check,no_root_squash)"
+    create: yes
+  become: true
+  notify: Restart NFS
+
+- name: Export NFS shares
+  command: exportfs -ra
+  become: true

@@ -1,2 +1,10 @@
----
-# defaults file for nfs_role
+# role mode: server or client
+nfs_mode: server
+
+# server config
+nfs_server_export_path: /srv/nfs_share
+nfs_client_allow: "*"
+
+# client config
+nfs_server_address: 127.0.0.1
+nfs_client_mount_path: /mnt/nfs_share
